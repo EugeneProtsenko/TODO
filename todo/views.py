@@ -57,11 +57,11 @@ def complete_task(request, pk):
     todo = Todo.objects.get(pk=pk)
     todo.is_done = True
     todo.save()
-    return redirect('/')
+    return redirect("/")
 
 
 def undo_task(request, pk):
     todo = Todo.objects.get(pk=pk)
     todo.is_done = False
     todo.save()
-    return redirect('/')
+    return redirect("/")

@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('todo', '0002_rename_tags_tag'),
+        ("todo", "0002_rename_tags_tag"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='todo',
-            name='date',
+            model_name="todo",
+            name="date",
             field=models.DateTimeField(),
         ),
     ]
