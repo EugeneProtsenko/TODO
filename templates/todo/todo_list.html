@@ -38,15 +38,12 @@
                 </a>
               </div>
               <div>
-                {% if todo.is_done %}
-                  <a href="{% url 'todo:undo-task' pk=todo.id %}" class="btn btn-warning">
-                    Undo
-                  </a>
-                {% else %}
-                  <a href="{% url 'todo:complete-task' pk=todo.id %}" class="btn btn-success">
-                    Complete
-                  </a>
-                {% endif %}
+                <form method="post" action="{% url 'todo:toggle-task' pk=todo.id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn {% if todo.is_done %}btn-warning{% else %}btn-success{% endif %}">
+                    {% if todo.is_done %}Undo{% else %}Complete{% endif %}
+                  </button>
+                </form>
               </div>
             </div>
           </div>

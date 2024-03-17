@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views import generic
+from django.views import generic, View
 
 from todo.models import Todo, Tag
 
@@ -53,15 +53,9 @@ class TagDeleteView(generic.DeleteView):
     success_url = reverse_lazy("todo:tag-list")
 
 
-def complete_task(request, pk):
-    todo = Todo.objects.get(pk=pk)
-    todo.is_done = True
-    todo.save()
-    return redirect("/")
-
-
-def undo_task(request, pk):
-    todo = Todo.objects.get(pk=pk)
-    todo.is_done = False
-    todo.save()
-    return redirect("/")
+class ToggleTaskView(View):
+    def post(self, request, pk, *args, **kwargs):
+        todo = Todo.objects.get(pk=pk)
+        todo.is_done = not todo.is_done
+        todo.save()
+        return redirect("/")
