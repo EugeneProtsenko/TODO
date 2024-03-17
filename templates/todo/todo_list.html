@@ -24,7 +24,7 @@
                     <span class="badge badge-warning">Not Done</span>
                   {% endif %}
                 </h5>
-                <p class="card-text">{{ todo.date }}</p>
+                <p class="card-text">{{ todo.date|date:"F j, Y, g.i a" }}</p>
                 <p class="card-text">
                   {% for tag in todo.tags.all %}
                     <span class="badge badge-secondary">Tags: {{ tag.name }}</span>

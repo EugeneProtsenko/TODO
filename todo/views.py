@@ -9,7 +9,7 @@ class TodoListView(generic.ListView):
     model = Todo
     context_object_name = "todo_list"
     template_name = "todo/todo_list.html"
-    # paginate_by = 5
+    paginate_by = 3
 
 
 class TodoCreateView(generic.CreateView):
@@ -28,7 +28,7 @@ class TagListView(generic.ListView):
     model = Tag
     context_object_name = "tag_list"
     template_name = "todo/tag_list.html"
-    # paginate_by = 5
+    paginate_by = 5
 
 
 class TagCreateView(generic.CreateView):
