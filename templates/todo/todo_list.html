@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="my-4">
+      Task List
+      <a href="{% url 'todo:todo-create' %}" class="btn btn-primary float-right">
+        Create
+      </a>
+    </h1>
+    {% if todo_list %}  
+      {% for todo in todo_list %}
+        <div class="card my-2">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5 class="card-title d-inline">
+                  {{ todo.action }}
+                  {% if todo.is_done %}
+                    <span class="badge badge-success">Done</span>
+                  {% else %}
+                    <span class="badge badge-warning">Not Done</span>
+                  {% endif %}
+                </h5>
+                <p class="card-text">{{ todo.date|date:"F j, Y, g.i a" }}</p>
+                <p class="card-text">
+                  {% for tag in todo.tags.all %}
+                    <span class="badge badge-secondary">Tags: {{ tag.name }}</span>
+                  {% endfor %}
+                </p>
+                <a href="{% url 'todo:todo-update' pk=todo.id %}" class="btn btn-info">
+                  Update
+                </a>
+                <a href="{% url 'todo:todo-delete' pk=todo.id %}" class="btn btn-danger">
+                  Delete
+                </a>
+              </div>
+              <div>
+                {% if todo.is_done %}
+                  <a href="{% url 'todo:undo-task' pk=todo.id %}" class="btn btn-warning">
+                    Undo
+                  </a>
+                {% else %}
+                  <a href="{% url 'todo:complete-task' pk=todo.id %}" class="btn btn-success">
+                    Complete
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+      {% endfor %}
+    {% else %}
+      <p>There are no tasks in the list.</p>
+    {% endif %}
+  </div>
+{% endblock %}
